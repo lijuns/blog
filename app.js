@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');  //解析form、json字段 req.body
 
 var routes = require('./routes/index'); //index路由设置
 var users = require('./routes/users');  //user路由设置
+var articles = require('./routes/articles');    //articles 路由设置
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);   //根据用户调用的路径不同，启用不同的路由
 app.use('/users', users);
+app.use('/articles', articles);
 
 // catch 404 and forward to error handler   捕捉404错误 并发送到错误处理中间件
 // 错误处理中间件和普通中间件的区别在于错误中间件多了一个error 参数
