@@ -7,7 +7,7 @@ router.get('/add', function (req, res) {
 });
 
 router.post('/add', function (req, res) {
-    res.send('提交添加文章');
+    res.render('article/add',{});
 });
 
 module.exports = router;
