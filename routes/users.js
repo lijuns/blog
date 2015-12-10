@@ -3,7 +3,7 @@ var router = express.Router();
 
 //注册页面
 router.get('/reg', function (req, res) {
-    res.render('user/reg', {});
+    res.render('user/reg',{});
 });
 
 //提交注册
@@ -21,15 +21,15 @@ router.post('/reg', function (req, res) {
 
 //登录页面
 router.get('/login', function (req, res) {
-    res.render('user/login', {});
+    res.render('user/login',{});
 });
 
 //提交登录
 router.post('/login', function (req, res) {
     var user = req.body;
-    console.log(Model('User').findOne(user));
     Model('User').findOne(user, function (err, doc) {
         if (doc) {  //doc有值表示登录成功
+            req.session.user = doc;
             res.redirect('/');
         } else {
             res.redirect('/users/login');
