@@ -1,5 +1,6 @@
 <% include ../include/head.ejs %>
 <div class="container main">
+    <h1 class="text-center">注册页面</h1>
     <form action="/users/reg" method="post" role="form" class="form-horizontal">
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">用户名</label>
@@ -15,7 +16,7 @@
 
             <div class="input-group col-sm-10">
                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-                <input type="password" class="form-control" name="repassword" id="repassword" placeholder="确认密码"/>
+                <input type="password" class="form-control" name="password" id="password" placeholder="密码"/>
             </div>
         </div>
         <div class="form-group">

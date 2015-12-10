@@ -5,11 +5,13 @@ var logger = require('morgan'); //日志文件
 var cookieParser = require('cookie-parser');  //解析cookie  req.cookie
 var bodyParser = require('body-parser');  //解析form、json字段 req.body
 
+
 var routes = require('./routes/index'); //index路由设置
 var users = require('./routes/users');  //user路由设置
 var articles = require('./routes/articles');    //articles 路由设置
 
 var app = express();
+require('./db/register');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));  //设置模板引擎
@@ -40,7 +42,7 @@ app.use(function (req, res, next) { //错误页面捕获解析
 
 // error handlers
 // development error handler
-// will print stacktrace
+// will print stacktrace    打印堆栈信息
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
@@ -52,7 +54,7 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-// no stacktrace leaked to user
+// no stacktrace leaked to user 不向用户暴露堆栈信息
 app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -61,4 +63,4 @@ app.use(function (err, req, res, next) {
     });
 });
 
-module.exports = app;
+module.exports = app;   //导出app供 bin/www 使用
