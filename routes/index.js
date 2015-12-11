@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/*--首页路由--*/
 router.get('/', function (req, res, next) {
-    res.render('index');
+    Model('Article').find({}).populate('user').exec(function (err, articles) {
+        res.render('index', {articles: articles});
+    });
 });
-
 
 module.exports = router;

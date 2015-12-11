@@ -8,12 +8,13 @@ var bodyParser = require('body-parser');  //解析form、json字段 req.body
 var routes = require('./routes/index'); //index路由设置
 var users = require('./routes/users');  //user路由设置
 var articles = require('./routes/articles');    //articles 路由设置
+
 var session = require('express-session');   //会话模块  req.session
 var mongoStore = require('connect-mongo')(session); //依赖session模块，用于将session储存到数据库中
 var flash = require('connect-flash');
 
 var app = express();
-require('./db/register');
+require('./db/index');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));  //设置模板引擎
@@ -36,7 +37,7 @@ app.use(session({
     saveUninitialized: true, // 最后的两个参数必须设置，否则会报错
 
     store: new mongoStore({  //使用connect-mongo之后，session参数中必须添加该参数
-        url: 'mongodb://127.0.0.1/blog',
+        url: 'mongodb://127.0.0.1/blog'
 
     })
 })); //引用session模块

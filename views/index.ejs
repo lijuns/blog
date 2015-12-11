@@ -1,5 +1,31 @@
-<% include include/head%>
+<% include include/head %>
 <main>
-    首页
+    <%
+    for(var i = 0;i < articles.length;i++){
+    %>
+    <div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img src="http://gravatar.duoshuo.com/avatar/email?s=48" alt="">
+                <%= articles[i].user.username %>
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">
+                <a href="/articles/detail/<%= articles[i]._id %>">
+                    <%= articles[i].title %>
+                </a>
+            </h4>
+            <p>
+                <%= articles[i].content %>
+            </p>
+            <p>
+                <img src="<%= articles[i].poster %>" alt="" width="80">
+            </p>
+        </div>
+    </div>
+    <%
+    }
+    %>
 </main>
-<% include include/foot%>
+<% include include/foot %>

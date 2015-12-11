@@ -15,6 +15,16 @@ mongoose.model('User', new mongoose.Schema({
     password: String
 }));
 
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
+mongoose.model('Article', new mongoose.Schema({
+    title: String,
+    content: String,
+    poster: String,
+    user: {type: ObjectId, ref: 'User'} //对象id类型，引用user
+}));
+
+
 global.Model = function (modName) {
     return mongoose.model(modName);
 };
