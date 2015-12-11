@@ -3,7 +3,7 @@ var router = express.Router();
 
 //注册页面
 router.get('/reg', function (req, res) {
-    res.render('user/reg',{});
+    res.render('user/reg', {});
 });
 
 //提交注册
@@ -21,25 +21,39 @@ router.post('/reg', function (req, res) {
 
 //登录页面
 router.get('/login', function (req, res) {
-    res.render('user/login',{});
+    res.render('user/login', {});
 });
 
 //提交登录
 router.post('/login', function (req, res) {
     var user = req.body;
     Model('User').findOne(user, function (err, doc) {
-        if (doc) {  //doc有值表示登录成功
-            req.session.user = doc;
-            res.redirect('/');
-        } else {
-            res.redirect('/users/login');
+        if (!doc) {
+
+            req.flash('error', '用户不存在');
+            return res.redirect('/users/login');
+
         }
+
+        if (doc.password != req.body.password) {
+
+            req.flash('error', '密码错误');
+            return res.redirect('/users/login');
+        }
+
+        req.session.user = doc;
+
+        req.flash('success', '登录成功');
+        res.redirect('/');
+
     });
 });
 
 //退出
 router.get('/logout', function (req, res) {
-    res.render('user/logout', {});
+    req.flash('success', '退出成功');
+    req.session.user = null;
+    res.redirect('/users/login');
 });
 
 module.exports = router;

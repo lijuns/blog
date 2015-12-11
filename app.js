@@ -10,7 +10,6 @@ var users = require('./routes/users');  //user路由设置
 var articles = require('./routes/articles');    //articles 路由设置
 var session = require('express-session');   //会话模块  req.session
 var mongoStore = require('connect-mongo')(session); //依赖session模块，用于将session储存到数据库中
-
 var flash = require('connect-flash');
 
 var app = express();
@@ -42,10 +41,16 @@ app.use(session({
     })
 })); //引用session模块
 
+//使用消息控制中间件
+app.use(flash());   //req.flash();
 
 //处理公共变量
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
+    //res.locals.success = req.session.success;
+    res.locals.success = req.flash('success').toString();  //req.flash的取值差异
+    res.locals.error = req.flash('error').toString();
+
     next();
 });
 

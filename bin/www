@@ -9,7 +9,7 @@ var debug = require('debug')('blog:server');    //引入打印调试日志的deb
 var http = require('http');
 
 /**
- * Get port from environment and store in Express.     //从环境变量中获取端口号并存放到express中
+ * Get port from environment and store in Express.     从环境变量中获取端口号并存放到express中
  */
 
 var port = normalizePort(process.env.PORT || '3000');   //设置端口号

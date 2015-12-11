@@ -33,3 +33,17 @@
         </div>
     </div>
 </nav>
+
+<!--提示成功消息-->
+<%if(success){%>
+<div class="alert alert-success" role="alert">
+    <%= success %>
+</div>
+<%}%>
+
+<!--提示失败消息-->
+<%if(error){%>
+<div class="alert alert-danger" role="alert">
+    <%= error %>
+</div>
+<%}%>
