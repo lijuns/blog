@@ -49,6 +49,7 @@ router.post('/add', upload.single('poster'), middleware.checkLogin, function (re
 
 });
 
+//文章详细
 router.get('/detail/:id', function (req, res) {
     var id = req.params.id;
     Model('Article').findById(id, function (err, article) {
@@ -56,13 +57,7 @@ router.get('/detail/:id', function (req, res) {
     });
 });
 
-router.get('/detail/edit/:id', function (req, res) {
-    var id = req.params.id;
-    Model('Article').findById(id, function (err, article) {
-
-    })
-});
-
+//删除文章
 router.get('/delete/:id', function (req, res) {
     var id = req.params.id;
     Model('Article').remove({_id: id}, function (err) {
@@ -74,6 +69,7 @@ router.get('/delete/:id', function (req, res) {
     })
 });
 
+//编辑文章
 router.get('/edit/:id', function (req, res) {
     var id = req.params.id;
     Model('Article').findById(id, function (err, article) {
@@ -81,4 +77,37 @@ router.get('/edit/:id', function (req, res) {
     })
 });
 
+//文章搜索
+router.get('/list/:pageNum/:pageSize', function (req, res) {
+    var keyword = req.query.keyword;
+    var pageSize = Number(req.params.pageSize);
+    var pageNum = Number(req.params.pageNum);
+    var query = new RegExp(keyword, 'i');
+    Model('Article').count({$or: [{title: query}, {content: query}]}, function (err, count) {
+        var totalPage = Math.ceil(count / pageSize);
+        pageNum = pageNum <= 0 ? 1 : pageNum;
+        pageNum = pageNum >= totalPage ? totalPage : pageNum;
+        if (err) {
+            console.log(err);
+        } else {
+            Model('Article').find({$or: [{title: query}, {content: query}]})
+                .skip((pageNum - 1) * pageSize)
+                .limit(pageSize)
+                .exec(function (err, articles) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('index', {
+                            title: '主页',
+                            pageNum: pageNum,
+                            pageSize: pageSize,
+                            keyword: keyword,
+                            totalPage: totalPage,
+                            articles: articles
+                        });
+                    }
+                });
+        }
+    });
+});
 module.exports = router;

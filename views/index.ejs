@@ -27,5 +27,30 @@
     <%
     }
     %>
+    <nav>
+        <ul class="pagination">
+            <li class="<%=pageNum==1 ? 'disabled':''%>">
+                <a href="/articles/list/<%=i-1%>/2" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <%
+            for(var i = 1;i <= totalPage;i++){
+            %>
+            <li class="<%=pageNum == i ? 'active' :''%>">
+                <a href="/articles/list/<%= i %>/2?keyword=<%=keyword%>">
+                    <%= i %>
+                </a>
+            </li>
+            <%
+            }
+            %>
+            <li  class="<%=pageNum==totalPage ? 'disabled':''%>">
+                <a href="/articles/list/<%=i+1%>/2" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </main>
 <% include include/foot %>

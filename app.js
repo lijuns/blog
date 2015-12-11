@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
     //res.locals.success = req.session.success;
     res.locals.success = req.flash('success').toString();  //req.flash的取值差异
     res.locals.error = req.flash('error').toString();
-
+    res.locals.keyword = '';
     next();
 });
 

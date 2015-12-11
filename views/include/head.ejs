@@ -20,7 +20,6 @@
                 if(user){
                 %>
                 <li><a href="/articles/add">发表文章</a></li>
-                <li><a href="/users/logout">登出</a></li>
                 <%
                 }else{
                 %>
@@ -30,20 +29,34 @@
                 }
                 %>
             </ul>
+            <form class="navbar-form navbar-left" role="search" method="get" action="/articles/list/1/2">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="keyword" value="<%= keyword%>" placeholder="请输入要查询的关键字">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">欢迎你，<%=user ?user.username :''%> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/users/logout">登出</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
 <!--提示成功消息-->
-<%if(success){%>
+<% if(success){ %>
 <div class="alert alert-success" role="alert">
     <%= success %>
 </div>
-<%}%>
+<% } %>
 
 <!--提示失败消息-->
-<%if(error){%>
+<% if(error){ %>
 <div class="alert alert-danger" role="alert">
     <%= error %>
 </div>
-<%}%>
+<% } %>
